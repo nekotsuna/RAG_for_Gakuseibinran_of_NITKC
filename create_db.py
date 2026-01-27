@@ -17,19 +17,20 @@ def to_embeddings(input_texts: list[str], tokenizer, model) -> Tensor:
     return embeddings
 
 embedding_id = "intfloat/multilingual-e5-large"
+embedding_path = "../multilingual-e5-large"
 
-embedding_tokenizer = AutoTokenizer.from_pretrained(embeddings_id)
-embedding_model = AutoModel.from_pretrained(embeddings_id)
+embedding_tokenizer = AutoTokenizer.from_pretrained(embedding_path)
+embedding_model = AutoModel.from_pretrained(embedding_path)
 
 
 # db化するテキストファイルのパス
-FILE = "令和7年度_学生便覧_学生生活.txt"
+FILEPATH = "documents/令和7年度_学生便覧_学生生活.txt"
 # チャンクの大きさ
 CHUNK_LENGTH = 100
 
 chunk_list = []
 
-with open(FILE, 'r') as fp:
+with open(FILEPATH, 'r') as fp:
   text = fp.read()
 
 # テキストファイルをチャンクに分ける
@@ -42,6 +43,8 @@ storename = "database/index.faiss"
 dimention = 1024
 index = faiss.IndexFlatL2(dimention)
 
+print("start embedding")
+# メモリ節約のために10個ずつ変換
 for i in range(0, len(chunk_list), 10):
   passage_embeddings = to_embeddings(chunk_list[i:i+10], embedding_tokenizer, embedding_model)
   # tensorをndarrayに変換
@@ -52,6 +55,8 @@ for i in range(0, len(chunk_list), 10):
   # メモリ節約のために、メモリを解放
   del passage_embeddings
   del numpy_embeddings
+
+  print(str(i) + "-" + str(i + 10) + " complete")
 
 faiss.write_index(index, storename)
 

@@ -1,3 +1,4 @@
+import os
 import sys
 from torch import Tensor
 import torch
@@ -22,18 +23,24 @@ if __name__ == '__main__':
 
   rag = RAG_for_Gakuseibinran()
 
-  for query, answer in zip(qa['Q'], qa['A']):
+  for query_set in qa: 
+    query_id = query_set['id']
+    query = query_set['question']
+    answer = query_set['answer']
     response, documents = rag.generate(query, role_message, top_k) 
   
-    respon
     result.append({
+      "id"       : query_id,
       "query"    : query,
       "answer"   : answer,
       "response" : response,
       "documents": documents,
     })
 
-  with open('result.json', 'w') as f:
-    json.dump(result, f, indent=2)
+    print("query " + str(query_id) + " complete")
+
+  result_filepath = os.path.splitext(os.path.basename(dataset_filepath))[0] + '_rag_result.json'
+  with open(result_filepath, 'w') as f:
+    json.dump(result, f, indent=2, ensure_ascii=False)
 
   del rag

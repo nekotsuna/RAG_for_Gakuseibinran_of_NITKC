@@ -1,3 +1,4 @@
+import sys
 from torch import Tensor
 from transformers import AutoTokenizer, AutoModel
 import faiss
@@ -22,9 +23,10 @@ embedding_path = "../multilingual-e5-large"
 embedding_tokenizer = AutoTokenizer.from_pretrained(embedding_path)
 embedding_model = AutoModel.from_pretrained(embedding_path)
 
+args = sys.argv
 
 # db化するテキストファイルのパス
-FILEPATH = "documents/令和7年度_学生便覧_学生生活.txt"
+FILEPATH = argv[1]
 # チャンクの大きさ
 CHUNK_LENGTH = 100
 

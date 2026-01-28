@@ -2,7 +2,7 @@ import os
 import sys
 from torch import Tensor
 import torch
-from transformers import pipline
+from transformers import pipeline
 import json
 
 if __name__ == '__main__':

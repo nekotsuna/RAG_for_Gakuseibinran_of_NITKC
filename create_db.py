@@ -26,7 +26,7 @@ embedding_model = AutoModel.from_pretrained(embedding_path)
 args = sys.argv
 
 # db化するテキストファイルのパス
-FILEPATH = argv[1]
+FILEPATH = args[1]
 # チャンクの大きさ
 CHUNK_LENGTH = 100
 

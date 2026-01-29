@@ -1,0 +1,16 @@
+ID,style,model_evaluation,RAG_before_evaluation,RAG_evaluation
+0,scenario-base,0,2,2
+1,what-is,0,1,1
+2,how-to,1,1,2
+3,what-is,0,1,1
+4,scenario-base,2,2,0
+5,scenario-base,1,2,1
+6,what-is,0,2,2
+7,scenario-base,0,0,0
+8,scenario-base,1,1,1
+9,how-to,0,1,2
+10,what-is,0,0,2
+11,what-is,0,0,0
+12,how-to,0,1,2
+13,what-is,2,0,2
+14,scenario-base,0,2,2

@@ -117,7 +117,7 @@ class RAG_for_Gakuseibinran:
     messages.append({"role": "system", "content": system_message})
     messages.append({"role": "user", "content": user_message})
 
-    outputs = self.pipeline(messages, max_new_tokens=256, do_sample=True)
+    outputs = self.pipeline(messages, max_new_tokens=256, do_sample=False)
 
     response = outputs[0]["generated_text"][-1]["content"]
 
